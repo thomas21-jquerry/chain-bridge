@@ -9,12 +9,12 @@ const { address: admin } = web3Bsc.eth.accounts.wallet.add(adminPrivKey);
 
 const bridgeEth = new web3Eth.eth.Contract(
   BridgeEth.abi,
-  BridgeEth.networks['4'].address
+  BridgeEth.networks['11155111'].address
 );
 
 const bridgeBsc = new web3Bsc.eth.Contract(
   BridgeBsc.abi,
-  BridgeBsc.networks['97'].address
+  BridgeBsc.networks['80001'].address
 );
 
 bridgeEth.events.Transfer(

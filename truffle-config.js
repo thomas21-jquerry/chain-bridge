@@ -63,19 +63,20 @@ module.exports = {
     ethTestnet: {
       provider: () => new HDWalletProvider(
         mnemonic, 
-        'Infura Rinkeby url',
+        'https://ethereum-sepolia.publicnode.com',
         0,
         1
       ),
-      network_id: 4, //rinkeby
+      network_id: 11155111, //sepolia
       skipDryRun: true
     },
     bscTestnet: {
       provider: () => new HDWalletProvider(
         mnemonic, 
-        'https://data-seed-prebsc-1-s1.binance.org:8545'
+        'https://polygon-testnet.public.blastapi.io'
       ),
-      network_id: 97,
+      network_id: 80001,
+      // gasPrice: 870000000000,
       skipDryRun: true
     },
     // Useful for private networks
