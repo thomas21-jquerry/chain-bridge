@@ -2,8 +2,8 @@ const Web3 = require('web3');
 const BridgeEth = require('../build/contracts/BridgeEth.json');
 const BridgeBsc = require('../build/contracts/BridgeBsc.json');
 
-const web3Eth = new Web3('Infura Rinkeby  url');
-const web3Bsc = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545');
+const web3Eth = new Web3('wss://sepolia.infura.io/ws/v3/faa1104059054173a73d4f9252364e81');
+const web3Bsc = new Web3('https://polygon-mumbai-bor.publicnode.com');
 const adminPrivKey = '';
 const { address: admin } = web3Bsc.eth.accounts.wallet.add(adminPrivKey);
 
@@ -17,11 +17,31 @@ const bridgeBsc = new web3Bsc.eth.Contract(
   BridgeBsc.networks['80001'].address
 );
 
+console.log(bridgeEth.options.address)
+
+// bridgeEth.getPastEvents(
+//   'Transfer',
+//   {
+//     fromBlock: 	4828095,
+//     toBlock: 'latest'
+//   },(error,events)=>{
+//     console.log(events)
+//   }
+// )
+
+
 bridgeEth.events.Transfer(
-  {fromBlock: 0, step: 0}
+  {fromBlock: 0}, function(error, event){
+    if(!error){
+      console.log("haha")
+      console.log(event);
+    }
+    console.log(error)
+  }
 )
 .on('data', async event => {
   const { from, to, amount, date, nonce } = event.returnValues;
+  console.log(event)
 
   const tx = bridgeBsc.methods.mint(to, amount, nonce);
   const [gasPrice, gasCost] = await Promise.all([

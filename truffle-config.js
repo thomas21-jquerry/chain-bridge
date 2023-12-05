@@ -73,11 +73,12 @@ module.exports = {
     bscTestnet: {
       provider: () => new HDWalletProvider(
         mnemonic, 
-        'https://polygon-testnet.public.blastapi.io'
+        'https://polygon-mumbai-bor.publicnode.com'
       ),
       network_id: 80001,
       // gasPrice: 870000000000,
-      skipDryRun: true
+      skipDryRun: true,
+      timeout: 10000
     },
     // Useful for private networks
     // private: {
