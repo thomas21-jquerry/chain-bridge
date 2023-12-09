@@ -1,10 +1,14 @@
 const Web3 = require('web3');
+const dotenv = require('dotenv');
+dotenv.config();
 const BridgeEth = require('../build/contracts/BridgeEth.json');
 const BridgeBsc = require('../build/contracts/BridgeBsc.json');
 
 const web3Eth = new Web3('wss://sepolia.infura.io/ws/v3/faa1104059054173a73d4f9252364e81');
 const web3Bsc = new Web3('https://polygon-mumbai-bor.publicnode.com');
-const adminPrivKey = '';
+
+
+const adminPrivKey = process.env.PRIVATE_KEY;
 const { address: admin } = web3Bsc.eth.accounts.wallet.add(adminPrivKey);
 
 const bridgeEth = new web3Eth.eth.Contract(
@@ -31,9 +35,8 @@ console.log(bridgeEth.options.address)
 
 
 bridgeEth.events.Transfer(
-  {fromBlock: 0}, function(error, event){
+  {fromBlock: 'latest'}, function(error, event){
     if(!error){
-      console.log("haha")
       console.log(event);
     }
     console.log(error)
